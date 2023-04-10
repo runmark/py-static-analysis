@@ -1,0 +1,115 @@
+<?xml version="1.0" ?>
+<ast type="Module">
+  <body>
+    <ast lineno="1" col_offset="0" end_lineno="3" end_col_offset="13" type="FunctionDef">
+      <name>
+        <value type="str">add</value>
+      </name>
+      <args>
+        <ast type="arguments">
+          <posonlyargs/>
+          <args>
+            <ast lineno="1" col_offset="8" end_lineno="1" end_col_offset="9" type="arg">
+              <arg>
+                <value type="str">a</value>
+              </arg>
+              <annotation/>
+              <type_comment/>
+            </ast>
+            <ast lineno="1" col_offset="11" end_lineno="1" end_col_offset="12" type="arg">
+              <arg>
+                <value type="str">b</value>
+              </arg>
+              <annotation/>
+              <type_comment/>
+            </ast>
+          </args>
+          <vararg/>
+          <kwonlyargs/>
+          <kw_defaults/>
+          <kwarg/>
+          <defaults/>
+        </ast>
+      </args>
+      <body>
+        <ast lineno="2" col_offset="1" end_lineno="2" end_col_offset="15" type="Expr">
+          <value>
+            <ast lineno="2" col_offset="1" end_lineno="2" end_col_offset="15" type="Call">
+              <func>
+                <ast lineno="2" col_offset="1" end_lineno="2" end_col_offset="6" type="Name">
+                  <id>
+                    <value type="str">print</value>
+                  </id>
+                  <ctx>
+                    <ast type="Load"/>
+                  </ctx>
+                </ast>
+              </func>
+              <args>
+                <ast lineno="2" col_offset="8" end_lineno="2" end_col_offset="13" type="BinOp">
+                  <left>
+                    <ast lineno="2" col_offset="8" end_lineno="2" end_col_offset="9" type="Name">
+                      <id>
+                        <value type="str">a</value>
+                      </id>
+                      <ctx>
+                        <ast type="Load"/>
+                      </ctx>
+                    </ast>
+                  </left>
+                  <op>
+                    <ast type="Add"/>
+                  </op>
+                  <right>
+                    <ast lineno="2" col_offset="12" end_lineno="2" end_col_offset="13" type="Name">
+                      <id>
+                        <value type="str">b</value>
+                      </id>
+                      <ctx>
+                        <ast type="Load"/>
+                      </ctx>
+                    </ast>
+                  </right>
+                </ast>
+              </args>
+              <keywords/>
+            </ast>
+          </value>
+        </ast>
+        <ast lineno="3" col_offset="1" end_lineno="3" end_col_offset="13" type="Return">
+          <value>
+            <ast lineno="3" col_offset="8" end_lineno="3" end_col_offset="13" type="BinOp">
+              <left>
+                <ast lineno="3" col_offset="8" end_lineno="3" end_col_offset="9" type="Name">
+                  <id>
+                    <value type="str">a</value>
+                  </id>
+                  <ctx>
+                    <ast type="Load"/>
+                  </ctx>
+                </ast>
+              </left>
+              <op>
+                <ast type="Add"/>
+              </op>
+              <right>
+                <ast lineno="3" col_offset="12" end_lineno="3" end_col_offset="13" type="Name">
+                  <id>
+                    <value type="str">b</value>
+                  </id>
+                  <ctx>
+                    <ast type="Load"/>
+                  </ctx>
+                </ast>
+              </right>
+            </ast>
+          </value>
+        </ast>
+      </body>
+      <decorator_list/>
+      <returns/>
+      <type_comment/>
+    </ast>
+  </body>
+  <type_ignores/>
+</ast>
