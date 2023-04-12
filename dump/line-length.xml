@@ -1,0 +1,56 @@
+<?xml version="1.0" ?>
+<ast type="Module">
+  <body>
+    <ast lineno="1" col_offset="0" end_lineno="1" end_col_offset="19" type="Expr">
+      <value>
+        <ast lineno="1" col_offset="0" end_lineno="1" end_col_offset="19" type="Call">
+          <func>
+            <ast lineno="1" col_offset="0" end_lineno="1" end_col_offset="5" type="Name">
+              <id>
+                <value type="str">print</value>
+              </id>
+              <ctx>
+                <ast type="Load"/>
+              </ctx>
+            </ast>
+          </func>
+          <args>
+            <ast lineno="1" col_offset="6" end_lineno="1" end_col_offset="18" type="Constant">
+              <value>
+                <value type="str">short line</value>
+              </value>
+              <kind/>
+            </ast>
+          </args>
+          <keywords/>
+        </ast>
+      </value>
+    </ast>
+    <ast lineno="2" col_offset="0" end_lineno="2" end_col_offset="102" type="Expr">
+      <value>
+        <ast lineno="2" col_offset="0" end_lineno="2" end_col_offset="102" type="Call">
+          <func>
+            <ast lineno="2" col_offset="0" end_lineno="2" end_col_offset="5" type="Name">
+              <id>
+                <value type="str">print</value>
+              </id>
+              <ctx>
+                <ast type="Load"/>
+              </ctx>
+            </ast>
+          </func>
+          <args>
+            <ast lineno="2" col_offset="6" end_lineno="2" end_col_offset="101" type="Constant">
+              <value>
+                <value type="str">this is a very, very, very, very, very, very, very, very, very, very, very, very long line...</value>
+              </value>
+              <kind/>
+            </ast>
+          </args>
+          <keywords/>
+        </ast>
+      </value>
+    </ast>
+  </body>
+  <type_ignores/>
+</ast>
