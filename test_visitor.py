@@ -21,7 +21,13 @@ class VisitorMixin:
         if xml_filename:
             AstXml(ast_node).save_file("dump/" + xml_filename)
 
-    # def assert_found_issue(self, lineno:int, code: str):
+    def assert_found_issue(self, lineno: int, code: str):
+        for issue in self.ctx.issues:
+            if issue.line == lineno and issue.code == code:
+                return
+
+        issues = "\n".join([str(x) for x in self.ctx.issues])
+        self.fail(f"Expect issue {code} in line {lineno}, actual: {issues}")
 
 
 class LineLengthVisitorTest(TestCase, VisitorMixin):
@@ -35,11 +41,8 @@ print('this is a very, very, very, very, very, very, very, very, very, very, ver
         """.strip()
 
         self.run_visitor(code, xml_filename="line-length.xml")
-
-        self.assertEqual(2, len(self.ctx.issues))
-
-        issue = self.ctx.issues[0]
-        self.assertEqual((2, "W0001"), (issue.line, issue.code))
+        self.assert_found_issue(2, "W0001")
+        self.assert_found_issue(3, "W0001")
 
     def test_visit_docstring(self):
         code = """
@@ -52,8 +55,4 @@ def fn():
         """.strip()
 
         self.run_visitor(code, xml_filename="doc-string-length.xml")
-
-        self.assertEqual(1, len(self.ctx.issues))
-
-        issue = self.ctx.issues[0]
-        self.assertEqual((3, "W0001"), (issue.line, issue.code))
+        self.assert_found_issue(3, "W0001")

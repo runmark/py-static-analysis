@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 import ast
+from typing import List
 
 
 @dataclass
@@ -24,7 +25,7 @@ class CodeIssue:
 class AnalysisContext:
     def __init__(self, filename: str):
         self.filename = filename
-        self.issues = []
+        self.issues: List[CodeIssue] = []
 
     def add_issue(self, node: ast.AST, code: str, message: str, lineno: int = None):
         issue = CodeIssue(
