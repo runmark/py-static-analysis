@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<ast type="Module">
+  <body>
+    <ast lineno="1" col_offset="0" end_lineno="6" end_col_offset="8" type="FunctionDef">
+      <name>
+        <value type="str">fn</value>
+      </name>
+      <args>
+        <ast type="arguments">
+          <posonlyargs/>
+          <args/>
+          <vararg/>
+          <kwonlyargs/>
+          <kw_defaults/>
+          <kwarg/>
+          <defaults/>
+        </ast>
+      </args>
+      <body>
+        <ast lineno="2" col_offset="4" end_lineno="5" end_col_offset="7" type="Expr">
+          <value>
+            <ast lineno="2" col_offset="4" end_lineno="5" end_col_offset="7" type="Constant">
+              <value>
+                <value type="str">
+    This is a very, very, very, very, very, very, very, very, very, very, very, very long doc string
+    The second line
+    </value>
+              </value>
+              <kind/>
+            </ast>
+          </value>
+        </ast>
+        <ast lineno="6" col_offset="4" end_lineno="6" end_col_offset="8" type="Pass"/>
+      </body>
+      <decorator_list/>
+      <returns/>
+      <type_comment/>
+    </ast>
+  </body>
+  <type_ignores/>
+</ast>
