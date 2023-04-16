@@ -56,3 +56,30 @@ class LineLengthVisitor(ast.NodeVisitor):
             return node
         else:
             return None
+
+
+class ExceptionTypeVisitor(ast.NodeVisitor):
+    avoid_type = (Exception, BaseException)
+
+    def __init__(self, ctx: AnalysisContext):
+        super().__init__()
+        self.ctx = ctx
+
+    def visit_ExceptHandler(self, node: ast.AST):
+        if not node.type:
+            self.ctx.add_issue(
+                node, "W0002", f"Please specify exception type to catch."
+            )
+
+        for except_type in self.iter_except_type(node.type):
+            if isinstance(except_type, ast.Name) and except_type.id == "Exception":
+                self.ctx.add_issue(node, "W0002", f"Avoid catch generic Exception.")
+        self.generic_visit(node)
+
+    def iter_except_type(self, node: ast.AST):
+        if isinstance(node, ast.Name):
+            yield node
+        elif isinstance(node, ast.Tuple):
+            for elt in node.elts:
+                if isinstance(elt, ast.Name):
+                    yield elt

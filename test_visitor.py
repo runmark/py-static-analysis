@@ -4,7 +4,7 @@ from model import AnalysisContext
 import ast
 from astxml import AstXml
 
-from visitor import LineLengthVisitor
+from visitor import LineLengthVisitor, ExceptionTypeVisitor
 
 
 class VisitorMixin:
@@ -14,7 +14,7 @@ class VisitorMixin:
         self.assertIsNotNone(self.visitor_type, "Visitor type not defined.")
 
         self.ctx = AnalysisContext("test.py")
-        visitor = LineLengthVisitor(self.ctx)
+        visitor = self.visitor_type(self.ctx)
         ast_node = ast.parse(code)
         visitor.visit(ast_node)
 
@@ -28,6 +28,10 @@ class VisitorMixin:
 
         issues = "\n".join([str(x) for x in self.ctx.issues])
         self.fail(f"Expect issue {code} in line {lineno}, actual: {issues}")
+
+    def assert_no_issue(self):
+        issue_count = len(self.ctx.issues)
+        self.assertEqual(0, issue_count, f"Expected no issue, actual: {issue_count}")
 
 
 class LineLengthVisitorTest(TestCase, VisitorMixin):
@@ -56,3 +60,43 @@ def fn():
 
         self.run_visitor(code, xml_filename="doc-string-length.xml")
         self.assert_found_issue(3, "W0001")
+
+
+class ExceptionTypeVisitorTest(TestCase, VisitorMixin):
+    visitor_type = ExceptionTypeVisitor
+
+    def test_no_handler(self):
+        code = """print('hello')""".strip()
+        self.run_visitor(code, xml_filename="exception-no-handler.xml")
+        self.assert_no_issue()
+
+    def test_handler_generic(self):
+        code = """
+try:
+    calc()
+except Exception as e:
+    print(e)
+        """.strip()
+
+        self.run_visitor(code, xml_filename="exception-catch-generic.xml")
+        self.assert_found_issue(3, "W0002")
+
+    def test_catch_multiple_types_with_issue(self):
+        code = """
+try:
+   calc()
+except (Exception, ValueError) as e:
+   print(e)
+        """.strip()
+        self.run_visitor(code, xml_filename="exception-catch-multi-with-issue.xml")
+        self.assert_found_issue(3, "W0002")
+
+    def test_catch_no_type(self):
+        code = """
+try:
+   calc()
+except:
+   print(e)
+        """.strip()
+        self.run_visitor(code, xml_filename="exception-catch-no-type.xml")
+        self.assert_found_issue(3, "W0002")

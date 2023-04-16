@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<ast type="Module">
+  <body>
+    <ast lineno="1" col_offset="0" end_lineno="4" end_col_offset="11" type="Try">
+      <body>
+        <ast lineno="2" col_offset="3" end_lineno="2" end_col_offset="9" type="Expr">
+          <value>
+            <ast lineno="2" col_offset="3" end_lineno="2" end_col_offset="9" type="Call">
+              <func>
+                <ast lineno="2" col_offset="3" end_lineno="2" end_col_offset="7" type="Name">
+                  <id>
+                    <value type="str">calc</value>
+                  </id>
+                  <ctx>
+                    <ast type="Load"/>
+                  </ctx>
+                </ast>
+              </func>
+              <args/>
+              <keywords/>
+            </ast>
+          </value>
+        </ast>
+      </body>
+      <handlers>
+        <ast lineno="3" col_offset="0" end_lineno="4" end_col_offset="11" type="ExceptHandler">
+          <type/>
+          <name/>
+          <body>
+            <ast lineno="4" col_offset="3" end_lineno="4" end_col_offset="11" type="Expr">
+              <value>
+                <ast lineno="4" col_offset="3" end_lineno="4" end_col_offset="11" type="Call">
+                  <func>
+                    <ast lineno="4" col_offset="3" end_lineno="4" end_col_offset="8" type="Name">
+                      <id>
+                        <value type="str">print</value>
+                      </id>
+                      <ctx>
+                        <ast type="Load"/>
+                      </ctx>
+                    </ast>
+                  </func>
+                  <args>
+                    <ast lineno="4" col_offset="9" end_lineno="4" end_col_offset="10" type="Name">
+                      <id>
+                        <value type="str">e</value>
+                      </id>
+                      <ctx>
+                        <ast type="Load"/>
+                      </ctx>
+                    </ast>
+                  </args>
+                  <keywords/>
+                </ast>
+              </value>
+            </ast>
+          </body>
+        </ast>
+      </handlers>
+      <orelse/>
+      <finalbody/>
+    </ast>
+  </body>
+  <type_ignores/>
+</ast>
