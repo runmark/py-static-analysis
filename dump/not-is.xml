@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+<ast type="Module">
+  <body>
+    <ast lineno="1" col_offset="0" end_lineno="2" end_col_offset="12" type="If">
+      <test>
+        <ast lineno="1" col_offset="3" end_lineno="1" end_col_offset="16" type="UnaryOp">
+          <op>
+            <ast type="Not"/>
+          </op>
+          <operand>
+            <ast lineno="1" col_offset="7" end_lineno="1" end_col_offset="16" type="Compare">
+              <left>
+                <ast lineno="1" col_offset="7" end_lineno="1" end_col_offset="8" type="Name">
+                  <id>
+                    <value type="str">a</value>
+                  </id>
+                  <ctx>
+                    <ast type="Load"/>
+                  </ctx>
+                </ast>
+              </left>
+              <ops>
+                <ast type="Is"/>
+              </ops>
+              <comparators>
+                <ast lineno="1" col_offset="12" end_lineno="1" end_col_offset="16" type="Constant">
+                  <value/>
+                  <kind/>
+                </ast>
+              </comparators>
+            </ast>
+          </operand>
+        </ast>
+      </test>
+      <body>
+        <ast lineno="2" col_offset="4" end_lineno="2" end_col_offset="12" type="Expr">
+          <value>
+            <ast lineno="2" col_offset="4" end_lineno="2" end_col_offset="12" type="Call">
+              <func>
+                <ast lineno="2" col_offset="4" end_lineno="2" end_col_offset="9" type="Name">
+                  <id>
+                    <value type="str">print</value>
+                  </id>
+                  <ctx>
+                    <ast type="Load"/>
+                  </ctx>
+                </ast>
+              </func>
+              <args>
+                <ast lineno="2" col_offset="10" end_lineno="2" end_col_offset="11" type="Name">
+                  <id>
+                    <value type="str">a</value>
+                  </id>
+                  <ctx>
+                    <ast type="Load"/>
+                  </ctx>
+                </ast>
+              </args>
+              <keywords/>
+            </ast>
+          </value>
+        </ast>
+      </body>
+      <orelse/>
+    </ast>
+  </body>
+  <type_ignores/>
+</ast>

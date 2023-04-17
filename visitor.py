@@ -138,3 +138,44 @@ class VariableUsageVisitor(ast.NodeVisitor):
             scope = self.scope_stack[-1]
             scope.use(node, self.in_assign)
         self.generic_visit(node)
+
+
+class PreferIsNotVisitor(ast.NodeVisitor):
+    def __init__(self, ctx: AnalysisContext):
+        super().__init__()
+        self.ctx = ctx
+
+    def visit_If(self, node: ast.If):
+        if isinstance(node.test, ast.UnaryOp) and isinstance(node.test.op, ast.Not):
+            operand = node.test.operand
+            if (
+                isinstance(operand, ast.Compare)
+                and len(operand.ops) == 1
+                and isinstance(operand.ops[0], ast.Is)
+            ):
+                self.ctx.add_issue(node, "W0004", "Use if ... is not instead")
+        self.generic_visit(node)
+
+
+class CodeAnalyzer:
+    def visitors(self, ctx: AnalysisContext):
+        yield LineLengthVisitor(ctx)
+        yield ExceptionTypeVisitor(ctx)
+        yield VariableUsageVisitor(ctx)
+        yield PreferIsNotVisitor(ctx)
+
+    def analysis(self, filename: str, code: str):
+        self.ctx = AnalysisContext(filename)
+        ast_root = ast.parse(code)
+        for visitor in self.visitors(self.ctx):
+            visitor.visit(ast_root)
+
+    def print(self):
+        for issue in self.ctx.issues:
+            print(issue)
+
+
+if __name__ == "__main__":
+    analyzer = CodeAnalyzer()
+    analyzer.analysis("test.py", CODE)
+    analyzer.print()

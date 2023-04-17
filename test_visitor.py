@@ -4,7 +4,12 @@ from model import AnalysisContext
 import ast
 from astxml import AstXml
 
-from visitor import LineLengthVisitor, ExceptionTypeVisitor, VariableUsageVisitor
+from visitor import (
+    LineLengthVisitor,
+    ExceptionTypeVisitor,
+    VariableUsageVisitor,
+    PreferIsNotVisitor,
+)
 
 
 class VisitorMixin:
@@ -145,3 +150,23 @@ def outer():
 #             """.strip()
 #         self.run_visitor(code, xml_filename="vars-nested-func-succ.xml")
 #         self.assert_no_issue()
+
+
+class PreferIsNotVisitorTest(TestCase, VisitorMixin):
+    visitor_type = PreferIsNotVisitor
+
+    def test_is_not(self):
+        code = """
+if a is not None:
+    print(a)
+        """.strip()
+        self.run_visitor(code, xml_filename="is-not.xml")
+        self.assert_no_issue()
+
+    def test_not_is(self):
+        code = """
+if not a is None:
+    print(a)
+        """.strip()
+        self.run_visitor(code, xml_filename="not-is.xml")
+        self.assert_found_issue(1, "W0004")
