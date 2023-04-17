@@ -30,9 +30,9 @@ class AnalysisContext:
     def add_issue(self, node: ast.AST, code: str, message: str, lineno: int = None):
         issue = CodeIssue(
             filename=self.filename,
-            line=lineno or node.lineno,
-            column=node.col_offset,
             code=code,
             message=message,
+            column=node.col_offset,
+            line=lineno or node.lineno,
         )
         self.issues.append(issue)

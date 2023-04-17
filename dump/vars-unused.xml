@@ -1,0 +1,101 @@
+<?xml version="1.0" ?>
+<ast type="Module">
+  <body>
+    <ast lineno="1" col_offset="0" end_lineno="3" end_col_offset="18" type="FunctionDef">
+      <name>
+        <value type="str">fn</value>
+      </name>
+      <args>
+        <ast type="arguments">
+          <posonlyargs/>
+          <args/>
+          <vararg/>
+          <kwonlyargs/>
+          <kw_defaults/>
+          <kwarg/>
+          <defaults/>
+        </ast>
+      </args>
+      <body>
+        <ast lineno="2" col_offset="4" end_lineno="2" end_col_offset="31" type="Assign">
+          <targets>
+            <ast lineno="2" col_offset="4" end_lineno="2" end_col_offset="14" type="Tuple">
+              <elts>
+                <ast lineno="2" col_offset="4" end_lineno="2" end_col_offset="8" type="Name">
+                  <id>
+                    <value type="str">name</value>
+                  </id>
+                  <ctx>
+                    <ast type="Store"/>
+                  </ctx>
+                </ast>
+                <ast lineno="2" col_offset="10" end_lineno="2" end_col_offset="14" type="Name">
+                  <id>
+                    <value type="str">work</value>
+                  </id>
+                  <ctx>
+                    <ast type="Store"/>
+                  </ctx>
+                </ast>
+              </elts>
+              <ctx>
+                <ast type="Store"/>
+              </ctx>
+            </ast>
+          </targets>
+          <value>
+            <ast lineno="2" col_offset="17" end_lineno="2" end_col_offset="31" type="Tuple">
+              <elts>
+                <ast lineno="2" col_offset="17" end_lineno="2" end_col_offset="23" type="Constant">
+                  <value>
+                    <value type="str">user</value>
+                  </value>
+                  <kind/>
+                </ast>
+                <ast lineno="2" col_offset="25" end_lineno="2" end_col_offset="31" type="Constant">
+                  <value>
+                    <value type="str">work</value>
+                  </value>
+                  <kind/>
+                </ast>
+              </elts>
+              <ctx>
+                <ast type="Load"/>
+              </ctx>
+            </ast>
+          </value>
+          <type_comment/>
+        </ast>
+        <ast lineno="3" col_offset="4" end_lineno="3" end_col_offset="18" type="Expr">
+          <value>
+            <ast lineno="3" col_offset="4" end_lineno="3" end_col_offset="18" type="Call">
+              <func>
+                <ast lineno="3" col_offset="4" end_lineno="3" end_col_offset="9" type="Name">
+                  <id>
+                    <value type="str">print</value>
+                  </id>
+                  <ctx>
+                    <ast type="Load"/>
+                  </ctx>
+                </ast>
+              </func>
+              <args>
+                <ast lineno="3" col_offset="10" end_lineno="3" end_col_offset="17" type="Constant">
+                  <value>
+                    <value type="str">hello</value>
+                  </value>
+                  <kind/>
+                </ast>
+              </args>
+              <keywords/>
+            </ast>
+          </value>
+        </ast>
+      </body>
+      <decorator_list/>
+      <returns/>
+      <type_comment/>
+    </ast>
+  </body>
+  <type_ignores/>
+</ast>

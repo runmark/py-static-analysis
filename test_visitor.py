@@ -4,7 +4,7 @@ from model import AnalysisContext
 import ast
 from astxml import AstXml
 
-from visitor import LineLengthVisitor, ExceptionTypeVisitor
+from visitor import LineLengthVisitor, ExceptionTypeVisitor, VariableUsageVisitor
 
 
 class VisitorMixin:
@@ -100,3 +100,25 @@ except:
         """.strip()
         self.run_visitor(code, xml_filename="exception-catch-no-type.xml")
         self.assert_found_issue(3, "W0002")
+
+
+class VariableUsageVisitorTest(TestCase, VisitorMixin):
+    visitor_type = VariableUsageVisitor
+
+    def test_vars_all_used(self):
+        code = """
+def fn():
+    name = 'user'
+    print(name)        
+        """.strip()
+        self.run_visitor(code, xml_filename="var-used.xml")
+        self.assert_no_issue()
+
+    def test_vars_not_used(self):
+        code = """
+def fn():
+    name, work = 'user', 'work'
+    print('hello')        
+        """.strip()
+        self.run_visitor(code, xml_filename="vars-unused.xml")
+        self.assert_found_issue(2, "W0003")

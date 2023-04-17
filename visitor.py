@@ -83,3 +83,36 @@ class ExceptionTypeVisitor(ast.NodeVisitor):
             for elt in node.elts:
                 if isinstance(elt, ast.Name):
                     yield elt
+
+
+class VariableUsageVisitor(ast.NodeVisitor):
+    def __init__(self, ctx: AnalysisContext):
+        super().__init__()
+        self.ctx = ctx
+        self.assigned_vars = {}
+        self.in_assign = False
+        self.used_vars = set()
+
+    def visit_Assign(self, node: ast.AST):
+        self.in_assign = True
+        self.generic_visit(node)
+        self.in_assign = False
+
+    def visit_Name(self, node: ast.AST):
+        var_name = node.id
+        if self.in_assign and isinstance(node.ctx, ast.Store):
+            self.assigned_vars[var_name] = node
+        else:
+            self.used_vars.add(var_name)
+        self.generic_visit(node)
+
+    def visit_Module(self, node: ast.AST):
+        self.generic_visit(node)
+
+        unused_vars = set(self.assigned_vars) - self.used_vars
+        for unused_var in unused_vars:
+            self.ctx.add_issue(
+                self.assigned_vars[unused_var],
+                "W0003",
+                f"Variable '{unused_var}' declared but never used",
+            )
