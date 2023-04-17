@@ -122,3 +122,26 @@ def fn():
         """.strip()
         self.run_visitor(code, xml_filename="vars-unused.xml")
         self.assert_found_issue(2, "W0003")
+
+    def test_nested_funcs_err(self):
+        code = """
+def outer():
+    def inner():
+        name = 'inner'
+        print('hello')
+    name = 'outer'
+    print(name)
+            """.strip()
+        self.run_visitor(code, xml_filename="vars-nested-func-err.xml")
+        self.assert_found_issue(3, "W0003")
+
+
+#     def test_nested_funcs_succ(self):
+#         code = """
+# def outer():
+#     name = 'outer'
+#     def inner():
+#         print(name)
+#             """.strip()
+#         self.run_visitor(code, xml_filename="vars-nested-func-succ.xml")
+#         self.assert_no_issue()

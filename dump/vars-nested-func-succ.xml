@@ -1,0 +1,96 @@
+<?xml version="1.0" ?>
+<ast type="Module">
+  <body>
+    <ast lineno="1" col_offset="0" end_lineno="4" end_col_offset="19" type="FunctionDef">
+      <name>
+        <value type="str">outer</value>
+      </name>
+      <args>
+        <ast type="arguments">
+          <posonlyargs/>
+          <args/>
+          <vararg/>
+          <kwonlyargs/>
+          <kw_defaults/>
+          <kwarg/>
+          <defaults/>
+        </ast>
+      </args>
+      <body>
+        <ast lineno="2" col_offset="4" end_lineno="2" end_col_offset="18" type="Assign">
+          <targets>
+            <ast lineno="2" col_offset="4" end_lineno="2" end_col_offset="8" type="Name">
+              <id>
+                <value type="str">name</value>
+              </id>
+              <ctx>
+                <ast type="Store"/>
+              </ctx>
+            </ast>
+          </targets>
+          <value>
+            <ast lineno="2" col_offset="11" end_lineno="2" end_col_offset="18" type="Constant">
+              <value>
+                <value type="str">outer</value>
+              </value>
+              <kind/>
+            </ast>
+          </value>
+          <type_comment/>
+        </ast>
+        <ast lineno="3" col_offset="4" end_lineno="4" end_col_offset="19" type="FunctionDef">
+          <name>
+            <value type="str">inner</value>
+          </name>
+          <args>
+            <ast type="arguments">
+              <posonlyargs/>
+              <args/>
+              <vararg/>
+              <kwonlyargs/>
+              <kw_defaults/>
+              <kwarg/>
+              <defaults/>
+            </ast>
+          </args>
+          <body>
+            <ast lineno="4" col_offset="8" end_lineno="4" end_col_offset="19" type="Expr">
+              <value>
+                <ast lineno="4" col_offset="8" end_lineno="4" end_col_offset="19" type="Call">
+                  <func>
+                    <ast lineno="4" col_offset="8" end_lineno="4" end_col_offset="13" type="Name">
+                      <id>
+                        <value type="str">print</value>
+                      </id>
+                      <ctx>
+                        <ast type="Load"/>
+                      </ctx>
+                    </ast>
+                  </func>
+                  <args>
+                    <ast lineno="4" col_offset="14" end_lineno="4" end_col_offset="18" type="Name">
+                      <id>
+                        <value type="str">name</value>
+                      </id>
+                      <ctx>
+                        <ast type="Load"/>
+                      </ctx>
+                    </ast>
+                  </args>
+                  <keywords/>
+                </ast>
+              </value>
+            </ast>
+          </body>
+          <decorator_list/>
+          <returns/>
+          <type_comment/>
+        </ast>
+      </body>
+      <decorator_list/>
+      <returns/>
+      <type_comment/>
+    </ast>
+  </body>
+  <type_ignores/>
+</ast>

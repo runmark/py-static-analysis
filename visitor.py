@@ -85,34 +85,56 @@ class ExceptionTypeVisitor(ast.NodeVisitor):
                     yield elt
 
 
+class VariableScope:
+    def __init__(self, node: ast.FunctionDef):
+        self.node = node
+        self.declare_vars = {}
+        self.used_vars = set()
+
+    def use(self, node: ast.Name, in_assign: bool):
+        var_name = node.id
+        if in_assign and isinstance(node.ctx, ast.Store):
+            self.declare_vars[var_name] = node
+        else:
+            self.used_vars.add(var_name)
+
+    def check(self, ctx: AnalysisContext):
+        unused_vars = set(self.declare_vars) - self.used_vars
+        for unused_var in unused_vars:
+            ctx.add_issue(
+                self.declare_vars[unused_var],
+                "W0003",
+                f"Variable '{unused_var}' declared but never used",
+            )
+
+
 class VariableUsageVisitor(ast.NodeVisitor):
     def __init__(self, ctx: AnalysisContext):
         super().__init__()
         self.ctx = ctx
-        self.assigned_vars = {}
         self.in_assign = False
-        self.used_vars = set()
+        self.scope_stack = []
+        # self.assigned_vars = {}
+        # self.used_vars = set()
 
-    def visit_Assign(self, node: ast.AST):
+    def visit(self, node: ast.AST):
+        is_scope_ast = isinstance(node, (ast.Module, ast.FunctionDef, ast.ClassDef))
+        if is_scope_ast:
+            scope = VariableScope(node)
+            self.scope_stack.append(scope)
+        # self.generic_visit(node)
+        super().visit(node)
+        if is_scope_ast:
+            self.scope_stack.remove(scope)
+            scope.check(self.ctx)
+
+    def visit_Assign(self, node: ast.Assign):
         self.in_assign = True
         self.generic_visit(node)
         self.in_assign = False
 
-    def visit_Name(self, node: ast.AST):
-        var_name = node.id
-        if self.in_assign and isinstance(node.ctx, ast.Store):
-            self.assigned_vars[var_name] = node
-        else:
-            self.used_vars.add(var_name)
+    def visit_Name(self, node: ast.Name):
+        if self.scope_stack:
+            scope = self.scope_stack[-1]
+            scope.use(node, self.in_assign)
         self.generic_visit(node)
-
-    def visit_Module(self, node: ast.AST):
-        self.generic_visit(node)
-
-        unused_vars = set(self.assigned_vars) - self.used_vars
-        for unused_var in unused_vars:
-            self.ctx.add_issue(
-                self.assigned_vars[unused_var],
-                "W0003",
-                f"Variable '{unused_var}' declared but never used",
-            )
